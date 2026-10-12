@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from database import db
 from routers import auth
+from routers import habits
 from schemas import Login, UserSignup, Token
 from utils.security import create_access_token, get_current_user, hash_password, verify_password
 
@@ -14,6 +15,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(auth.router, prefix='/auth')
+app.include_router(habits.router, prefix='/habits')
 
 @app.get("/")
 def read_root():
